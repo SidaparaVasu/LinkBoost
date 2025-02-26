@@ -9,6 +9,8 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework import serializers
 from .serializers import RegisterSerializer, LoginSerializer, ReferralSerializer
 
+from .models import *
+
 User = get_user_model()
 
 class RegisterView(APIView):
@@ -39,3 +41,17 @@ class ReferralView(RetrieveAPIView):
 class ReferralStatsSerializer(serializers.Serializer):
     total_referrals = serializers.IntegerField()
     successful_referrals = serializers.IntegerField()
+
+
+class ReferralStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        total_referrals = Referral.objects.filter(referrer=user).count()
+        successful_referrals = Referral.objects.filter(referrer=user, status="successful").count()
+
+        return Response({
+            "total_referrals": total_referrals,
+            "successful_referrals": successful_referrals    
+        })
