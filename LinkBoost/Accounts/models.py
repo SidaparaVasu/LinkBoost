@@ -11,5 +11,5 @@ class CustomUser(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.referral_code:
-            self.referral_code = str(uuid.uuid4())[:8]  # Generate unique referral code
+            self.referral_code = str(uuid.uuid4().hex[:20])  # Generate unique referral code
         super().save(*args, **kwargs)
