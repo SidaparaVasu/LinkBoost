@@ -3,6 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .models import Referral
+
 User = get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -16,15 +18,19 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         referral_code_used = validated_data.pop('referral_code_used', None)
-        referrer = None
+        referred_by  = None
 
         if referral_code_used:
             try:
-                referrer = User.objects.get(referral_code=referral_code_used)
+                referred_by = User.objects.get(referral_code=referral_code_used)
             except User.DoesNotExist:
                 raise serializers.ValidationError({"referral_code_used": "Invalid referral code"})
 
-        user = User.objects.create_user(**validated_data, referred_by=referrer)
+        user = User.objects.create_user(**validated_data, referred_by=referred_by)
+
+        if referred_by:
+            Referral.objects.create(referrer=referred_by, referred_user=user, status="successful")
+
         return user
 
 
