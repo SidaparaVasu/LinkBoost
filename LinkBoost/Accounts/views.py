@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveAPIView
+from rest_framework import serializers
 from .serializers import RegisterSerializer, LoginSerializer, ReferralSerializer
 
 User = get_user_model()
@@ -33,3 +34,8 @@ class ReferralView(RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+    
+
+class ReferralStatsSerializer(serializers.Serializer):
+    total_referrals = serializers.IntegerField()
+    successful_referrals = serializers.IntegerField()
