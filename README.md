@@ -1,4 +1,4 @@
-# Referral System Backend (Django)
+# LinkBoost - Referral System
 
 A simple referral system built using Django and Django REST Framework (DRF). This system allows users to register using referral links, track their referrals, and view referral statistics.
 
