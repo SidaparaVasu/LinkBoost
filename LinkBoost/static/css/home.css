@@ -56,6 +56,16 @@
     gap: 15px;
 }
 
+.referral-stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.referral-stats div {
+    display: flex;
+    gap: 20px;
+}
+
 table {
     margin-top: 10px;
     table-layout: fixed;

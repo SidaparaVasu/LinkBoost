@@ -43,6 +43,15 @@ def home_view(request):
         # Fetch referred users along with their referral status
         referred_users = Referral.objects.filter(referrer=user).select_related("referred_user")
 
-        return render(request, "home.html", {"referral_link": referral_link, "referred_users": referred_users})
+        # Fetch referral statistics
+        total_referrals = referred_users.count()
+        successful_referrals = referred_users.filter(status="successful").count()
+
+        return render(request, "home.html", {
+            "referral_link": referral_link,
+            "referred_users": referred_users,
+            "total_referrals": total_referrals,
+            "successful_referrals": successful_referrals,
+        })
     
     return redirect('login')

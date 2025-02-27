@@ -50,7 +50,13 @@
         </div>
 
         <div class="referred-list-box">
-            <h3>People referred by you:</h3>
+            <div class="referral-stats">
+                <h3>Referral Statistics</h3>
+                <div>
+                    <p><strong>Total Referrals:</strong> {{ total_referrals }}</p>
+                    <p><strong>Successful Referrals:</strong> {{ successful_referrals }}</p>
+                </div>
+            </div>
             <table class="list">
                 <thead>
                     <th>User</th>
