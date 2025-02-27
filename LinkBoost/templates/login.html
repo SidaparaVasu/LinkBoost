@@ -21,11 +21,13 @@
             {% endif %}
 
             <form action="/api/login/" method="POST" class="form">
+                {% csrf_token %}
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                <input type="email" name="email" id="email" placeholder="Enter your email"
+                value="user1@example.com" required>
             
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                <input type="password" name="password" id="password" placeholder="Enter your password" value="12345" required>
             
                 <button type="submit">Login</button>
             </form>

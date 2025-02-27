@@ -1,0 +1,75 @@
+.main-section {
+    min-height: 100vh;
+    max-width: 100vw;
+    padding: 40px 10%;
+}
+
+.profile, .refer-box, .referred-list-box {
+    border: 1px solid rgb(103 107 95 / 1);
+    padding: 20px;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.profile h1 > span {
+    color: #7367ef;
+}
+
+.refer-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.refer-box input{
+    padding: 10px 12px;
+    width: 60%;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(103 107 95 / 1);
+    cursor: not-allowed;
+}
+
+.refer-box input:focus,
+.refer-box input:active {
+    border: 1px solid rgb(103 107 95 / 1);
+    outline: none;
+}
+
+.refer-box button {
+    padding: 10px 12px;
+    border-radius: 0.5rem;
+    border: none;
+    color: #fff;
+    background-color: #7367ef;
+    cursor: pointer;
+}
+
+.referred-list-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+table {
+    margin-top: 10px;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgb(103 107 95 / 1);
+}
+
+table thead th {
+    padding: 20px 0;
+    border: 1px solid rgb(103 107 95 / 1);
+}
+
+table tbody tr td {
+    text-align: center;
+    padding: 10px 0;
+}

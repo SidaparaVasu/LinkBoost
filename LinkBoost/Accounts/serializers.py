@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
+from django.shortcuts import HttpResponse
+
 from .models import Referral
 
 User = get_user_model()
@@ -34,16 +36,20 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         referral_code_used = validated_data.pop('referral_code_used', None)
-        referred_by  = None
+        referred_by = None
 
+        # Fetch the referring user based on the referral code
         if referral_code_used:
             try:
                 referred_by = User.objects.get(referral_code=referral_code_used)
             except User.DoesNotExist:
                 raise serializers.ValidationError({"referral_code_used": "Invalid referral code"})
 
-        user = User.objects.create_user(**validated_data, referred_by=referred_by)
+        user = User.objects.create_user(**validated_data)
+        user.referred_by = referred_by
+        user.save()
 
+        # Store referral relationship
         if referred_by:
             Referral.objects.create(referrer=referred_by, referred_user=user, status="successful")
 

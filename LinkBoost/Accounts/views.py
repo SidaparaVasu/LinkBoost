@@ -10,33 +10,51 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework import serializers
 from .serializers import RegisterSerializer, LoginSerializer, ReferralSerializer
 
-from Main.views import home
-
 from .models import *
 
 User = get_user_model()
 
 class RegisterView(APIView):
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
+        referral_code = request.POST.get("referral_code")  # Capture referral code from form
+        print("Received Referral Code:", referral_code)  # Debugging
+
+        # Ensure the referral code is passed to serializer
+        data = request.data.copy()  # Create a mutable copy of request data
+        data['referral_code_used'] = referral_code
+
+        serializer = RegisterSerializer(data=data)
+        
         if serializer.is_valid():
-            serializer.save()
-            return render(request, 'index.html', {"message": "User registered successfully!"})
-            # return Response({"message": "User registered successfully!"}, status=status.HTTP_201_CREATED)
+            user = serializer.save()  # Save new user
 
-        # Extract only error messages (not error details)
+            # Debugging: Check if user is correctly linked
+            print("New User:", user.username, "| Referred By:", user.referred_by)
+
+            return render(request, 'login.html')  # Redirect to login page
+
+        # Extract error messages
         error_messages = [error[0] for error in serializer.errors.values()]
-
         return render(request, 'register.html', {"message": error_messages})
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
+
         if serializer.is_valid():
-            return redirect(home)
-            # return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            
+            email = request.POST.get("email")
+            user_data = User.objects.filter(email=email).first()
+
+            request.session['username'] = user_data.username
+            request.session['email'] = user_data.email
+            request.session['referral_code'] = user_data.referral_code
+            request.session['is_authenticated'] = True
+
+            return redirect(reverse('home_view'))
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
         
         # Extract only error messages (not error details)
         error_messages = [error[0] for error in serializer.errors.values()]

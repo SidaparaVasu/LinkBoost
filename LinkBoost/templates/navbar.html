@@ -1,0 +1,19 @@
+<header class="top-header">
+    <div class="logo-text">LinkBoost</div>
+    <div class="nav-box">
+        <ul class="link-box">
+            {% if request.session.is_authenticated %}
+                <li class="nav-links">
+                    <a href="/api/logout">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-links"><a href="javascript:void(0)">Home</a></li>
+                <li class="nav-links"><a href="javascript:void(0)">About</a></li>
+                <li class="nav-links"><a href="javascript:void(0)">Contact</a></li>
+                <li class="nav-links">
+                    <a href="/login">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</header>

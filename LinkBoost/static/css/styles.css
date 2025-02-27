@@ -1,61 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Inter, Helvetica, Arial, "system-ui", -apple-system !important;
-}
-
-:root {
-    --top-header-height: 100px;
-}
-
-body {
-    max-width: 100vw;
-    min-height: 100vh;
-}
-
-.top-header {
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 40px 10%;
-    background-color: #fff;
-    border-bottom: 1px solid rgb(103 107 95 / 1);
-}
-
-.top-header .logo-text {
-    font-size: 1.3rem;
-    font-weight: bold;
-}
-
-.top-header .nav-box {
-    margin: auto 0;
-}
-
-.top-header .nav-box ul {    
-    display: flex;
-    gap: 30px;
-}
-
-.top-header .nav-box ul li {
-    list-style: none;
-}
-
-.top-header .nav-box ul li a {
-    text-decoration: none;
-    color: #000;
-}
-
-.top-header .nav-box ul li a:hover {
-    color: #7367ef;
-    transition: 0.15s ease-in color;
-}
-
-
 .main-container {
     position: absolute;
     top: 0;
@@ -97,16 +39,17 @@ body {
     width: 250px;
     margin-top: 10px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+    outline: 2px solid #7367ef;
+    outline-offset: 2px;
 }
 
 .hero-text .wht-btn:hover {
-    outline: 2px solid #7367ef;
-    outline-offset: 2px;
-    cursor: pointer;
+    outline-offset: 4px;
+    transition: 0.1s ease-in;
 }
 
 .hero-text .wht-btn:focus {
-    outline-offset: 5px;
+    outline-offset: 8px;
     transition: 0.65s ease-in;
 }
 

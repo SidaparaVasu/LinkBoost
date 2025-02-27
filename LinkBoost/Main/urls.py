@@ -4,7 +4,8 @@ from .views import *
 
 urlpatterns = [
     # Landing page Rendering
-    path('', home, name='home'), 
+    path('', indexPage, name='indexPage'), 
+    path('home', home_view, name='home_view'), 
     path('register', register, name='register'), 
     path('login', login, name='login'),    
 ]

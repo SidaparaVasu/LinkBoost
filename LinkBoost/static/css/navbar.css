@@ -1,0 +1,40 @@
+.top-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 10%;
+  background-color: #fff;
+  border-bottom: 1px solid rgb(103 107 95 / 1);
+}
+
+.top-header .logo-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.top-header .nav-box {
+  margin: auto 0;
+}
+
+.top-header .nav-box ul {
+  display: flex;
+  gap: 30px;
+}
+
+.top-header .nav-box ul li {
+  list-style: none;
+}
+
+.top-header .nav-box ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.top-header .nav-box ul li a:hover {
+  color: #7367ef;
+  transition: 0.15s ease-in color;
+}
