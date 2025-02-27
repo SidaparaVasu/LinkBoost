@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkBoost - Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    
+    <header class="top-header">
+        <div class="logo-text">LinkBoost</div>
+        <div class="nav-box">
+            <ul class="link-box">
+                <li class="nav-links"><a href="javascript:void(0)">Home</a></li>
+                <li class="nav-links"><a href="javascript:void(0)">About</a></li>
+                <li class="nav-links"><a href="javascript:void(0)">Contact</a></li>
+                <li class="nav-links">
+                    <a href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="main-container">
+        <div class="hero-text">
+            <h1>Refer & Earn Exiting Rewards</h1>
+            <!-- <p>Easily connect your audience to everything you do with a single link. Build your digital presence, track referrals, and
+            grow effortlessly!</p> -->
+            <a href="/login" class="wht-btn">Let's Go!</a>
+        </div>
+    </section>
+
+    <footer>
+        <p class="credits">Created by <span>Vasu Sidapara</span> with ❤️.</p>
+    </footer>
+    
+    <!-- <a href="/login">login</a>
+    <a href="/register">register</a>
+    <a href="/api/logout">logout</a> -->
+</body>
+
+</html>

@@ -1,7 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Referral
 
@@ -15,6 +19,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'email', 'password', 'referral_code_used']
         extra_kwargs = {'password': {'write_only': True}}
+
+    def validate_email(self, value):
+        """Check if email is already registered"""
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email already registered.")
+        return value
+
+    def validate_username(self, value):
+        """Check if username is already taken"""
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Username already taken.")
+        return value
 
     def create(self, validated_data):
         referral_code_used = validated_data.pop('referral_code_used', None)
@@ -43,12 +59,13 @@ class LoginSerializer(serializers.Serializer):
         try:
             user = User.objects.get(email=data['email'])  # Get user by email
         except User.DoesNotExist:
-            raise serializers.ValidationError("Invalid email!")
+            raise serializers.ValidationError("User doesn't exists! Try register")
 
         # Authenticate using username
         user = authenticate(username=user.username, password=data['password'])  
         if not user:
-            raise serializers.ValidationError("Invalid password")
+            login(self, user)
+            raise serializers.ValidationError("Authentication failed! Try again later.")
 
         tokens = RefreshToken.for_user(user)
         return {
@@ -56,6 +73,23 @@ class LoginSerializer(serializers.Serializer):
             "refresh_token": str(tokens)
         }
     
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            # Get the refresh token from request
+            refresh_token = request.data.get("refresh_token")
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()  # Blacklist the refresh token
+                return Response({"message": "Logged out successfully"}, status=status.HTTP_205_RESET_CONTENT)
+            else:
+                return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ReferralSerializer(serializers.ModelSerializer):

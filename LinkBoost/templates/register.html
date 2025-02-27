@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - LinkBoost</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head> 
+
+<body>
+    <div class="container">
+        <div class="left-box">
+            <h1>Join LinkBoost!</h1>
+            <p>Refer and earn amazing rewards.</p>
+            
+            {% if message %}
+                <span class="message">
+                    <p class="message-text">{{ message }}</p>
+                </span>
+            {% endif %}
+
+            <form action="/api/register/" method="POST" class="form">
+                <label for="username">Username</label>
+                <input type="username" name="username" id="username" placeholder="Enter your username" required>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+
+                <button type="submit">Let's Go!</button>
+            </form>
+            <p>Already have an account? <a href="/login" class="link">Login</a> </p>
+        </div>
+        <div class="right-box">
+            <img src="{% static 'assets/img/sign-in-up-form.jpg' %}" class="poster-img" alt="sign-in-up-form">
+        </div>
+    </div>
+</body>
+
+</html>

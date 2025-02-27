@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, Helvetica, Arial, "system-ui", -apple-system !important;
+}
+
+body {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.container {
+    height: 100%;
+    max-width: 100%;    
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.container .left-box {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(115 103 239 / 0.15 );
+}
+
+.container .left-box h1 {
+    color: rgb(0 0 0 / 1);
+    font-size: 3rem;
+    margin-bottom: 4px;
+}
+
+.container .left-box p {
+    color: rgb(103 107 95 / 1);
+}
+
+.container .left-box .form {
+    margin: 20px 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 60%;
+} 
+
+.form input,
+.form button {
+    padding: 14px 19px;
+    border-radius: 50px;
+    border: 1px solid rgb(103 107 95 / 1);
+    outline: none;
+}
+
+.form input:focus {
+    border: 2px solid #000;
+}
+
+.form button {
+    background-color: #7367ef;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.form button:hover {
+    outline: 2px solid #7367ef;
+    outline-offset: 2px;
+    cursor: pointer;
+}
+
+.form button:focus {
+    outline-offset: 5px;
+    transition: 0.65s ease-in;
+}
+
+.link {
+    color: #7367ef;
+}
+
+.container .right-box {
+    height: 100%;
+    width: 100%;
+}
+
+.container .right-box .poster-img {
+    width: 100%;
+    height: 100%;
+}
+
+.message {
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgb(220 38 38 / 0.2);
+    padding: 10px 12px;
+    margin: 10px;
+}
+
+.message .message-text {
+    color: rgb(220 38 38);
+}
